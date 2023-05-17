@@ -23,6 +23,12 @@ _start:
     out 0x92, al
     
     call kernel_main
+
+    ;Cause divide my interrupt error.
+    mov eax, 0
+    div eax
+    ;or just use: int 0
+
     jmp $
 
     times 512-($ - $$) db 0

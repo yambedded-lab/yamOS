@@ -1,0 +1,10 @@
+#ifndef __CONFIG_H_
+#define __CONFIG_H_
+
+#define KERNEL_CODE_SELECTOR 0x08
+#define KERNEL_DATA_SELECTOR 0x10
+
+#define YAMOS_TOTAL_INTERRUPTS 512
+
+
+#endif /*__CONFIG_H_ */

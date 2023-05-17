@@ -1,4 +1,5 @@
 #include "kernel.h"
+#include "idt/idt.h"
 
 #include <stdint.h> 
 #include <stddef.h>
@@ -64,7 +65,7 @@ void print(const char *s){
 
 void kernel_main(){
     terminal_initialize();
-    
-    print("HELLO \n world...!!!");
+    idt_init();
+    print("HELLO \n world...!!!\n");
 
 }
