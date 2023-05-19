@@ -22,12 +22,22 @@ _start:
     or al, 2
     out 0x92, al
     
-    call kernel_main
 
-    ;Cause divide my interrupt error.
-    mov eax, 0
-    div eax
-    ;or just use: int 0
+    ; Remap the master PIC. 
+    mov al, 00010001b
+    out 0x20, al            ; Tell master PIC
+
+    mov al, 0x20            ; Interrupt 0x20 is where master ISR should start.
+    out 0x21, al
+    
+    mov al, 00000001b
+    out 0x21,al 
+    ; End remap of master PIC.
+
+    ;Enable Interrupts
+    sti
+    
+    call kernel_main
 
     jmp $
 
