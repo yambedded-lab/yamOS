@@ -1,5 +1,6 @@
 #include "kernel.h"
 #include "idt/idt.h"
+#include "io/io.h"
 
 #include <stdint.h> 
 #include <stddef.h>
@@ -67,5 +68,5 @@ void kernel_main(){
     terminal_initialize();
     idt_init();
     print("HELLO \n world...!!!\n");
-
+    outb(0x60, 0xff);
 }
