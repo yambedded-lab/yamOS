@@ -72,21 +72,8 @@ void kernel_main(){
 
     //Initialize the interrupt descriptor table. 
     idt_init();
-
-
-// TEST kmalloc and kfree.
-    void* ptr = kmalloc(50);
-    void* ptr2 = kmalloc(5000);
-    void* ptr3 = kmalloc(6999);
-    kfree(ptr3);    
-    //ptr4 should have same address as ptr3. as ptr3 is freed.
-    void* ptr4 = kmalloc(50);
-
-    
-    if(ptr || ptr2 || ptr3 || ptr4){
-
-    }
-// TEST Complete.
+    //enable interrupts after initalizing the inerrtupt descriptor table.
+    enable_interrupt();
 
 
     outb(0x60, 0xff);

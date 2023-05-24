@@ -24,4 +24,8 @@ struct  idtr_desc
 } __attribute__((packed));
 
 void idt_init();
+
+void enable_interrupt();
+void disable_interrupt();
+
 #endif /*__IDT_H__*/
