@@ -1,7 +1,7 @@
 #include "kernel.h"
 #include "idt/idt.h"
 #include "io/io.h"
-
+#include "memory/heap/kheap.h"
 #include <stdint.h> 
 #include <stddef.h>
 
@@ -66,7 +66,28 @@ void print(const char *s){
 
 void kernel_main(){
     terminal_initialize();
-    idt_init();
     print("HELLO \n world...!!!\n");
+    //Initilize the heap.
+    kheap_init();
+
+    //Initialize the interrupt descriptor table. 
+    idt_init();
+
+
+// TEST kmalloc and kfree.
+    void* ptr = kmalloc(50);
+    void* ptr2 = kmalloc(5000);
+    void* ptr3 = kmalloc(6999);
+    kfree(ptr3);    
+    //ptr4 should have same address as ptr3. as ptr3 is freed.
+    void* ptr4 = kmalloc(50);
+
+    
+    if(ptr || ptr2 || ptr3 || ptr4){
+
+    }
+// TEST Complete.
+
+
     outb(0x60, 0xff);
 }

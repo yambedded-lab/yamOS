@@ -1,5 +1,5 @@
-FILES = kernel_asm.o kernel.o idt.asm.o idt.o memory.o io.asm.o 
-FILES_SRC = ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.asm.o ./build/idt/idt.o ./build/memory/memory.o ./build/io/io.asm.o
+FILES = kernel_asm.o kernel.o idt.asm.o idt.o memory.o io.asm.o  memory.heap.o memory.kheap.o
+FILES_SRC = ./build/kernel.asm.o ./build/kernel.o ./build/idt/idt.asm.o ./build/idt/idt.o ./build/memory/memory.o ./build/io/io.asm.o ./build/memory/heap/heap.o ./build/memory/heap/kheap.o
 
 
 INCLUDES = -I./src
@@ -35,14 +35,22 @@ idt.o: ./src/idt/idt.c
 memory.o: ./src/memory/memory.c
 	i686-elf-gcc $(INCLUDES) -I./src/memory $(FLAGS) -std=gnu99 -c ./src/memory/memory.c -o ./build/memory/memory.o
 
+memory.heap.o: ./src/memory/heap/heap.c
+	i686-elf-gcc $(INCLUDES) -I./src/memory/heap $(FLAGS) -std=gnu99 -c ./src/memory/heap/heap.c -o ./build/memory/heap/heap.o
+
+memory.kheap.o: ./src/memory/heap/kheap.c
+	i686-elf-gcc $(INCLUDES) -I./src/memory/heap $(FLAGS) -std=gnu99 -c ./src/memory/heap/kheap.c -o ./build/memory/heap/kheap.o
+
 io.asm.o: ./src/io/io.asm
 	nasm -f elf -g ./src/io/io.asm -o ./build/io/io.asm.o
 
 clean:
 	rm -rf ./bin/*
-	rm -rf ./build/idt/*
-	rm -rf ./build/memory/*
 	rm -rf ./build/kernel.asm.o
 	rm -rf ./build/kernel.o
 	rm -rf ./build/kernelfull.o
+	rm -rf ./build/idt/*
+	rm -rf ./build/memory/memory.o
+	rm -rf ./build/memory/heap/heap.o
+	rm -rf ./build/memory/heap/kheap.o
 	rm -rf ./build/io/*
